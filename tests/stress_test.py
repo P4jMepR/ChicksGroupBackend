@@ -227,7 +227,7 @@ class APIStressTester:
 
 async def main():
     # Configuration
-    BASE_URL = "http://localhost:8000"  # Adjust if your API is hosted elsewhere
+    BASE_URL = "http://localhost:8000"
     CONCURRENT_REQUESTS = 50  # Number of concurrent requests
     
     print(f"Starting infinite stress test at {datetime.now()}")

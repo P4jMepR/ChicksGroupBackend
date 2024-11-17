@@ -58,7 +58,7 @@ def solve_water_jug(x_capacity: int, y_capacity: int, target: int) -> List[Step]
 
     while queue:
         x, y, steps = queue.popleft()
-        
+
         if x == target or y == target:
             # Skip the initial (0,0) state to avoid adding 1 unnecessary step (It is also performed within PDF requirements file)
             solution = format_steps([(x, y, action, is_final) for x, y, action, is_final in steps[1:] + [(x, y, "Target reached", True)]])
@@ -98,8 +98,6 @@ def format_steps(steps) -> List[Step]:
         )
         for i, (x, y, action, is_final) in enumerate(steps)
     ]
-
-
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])

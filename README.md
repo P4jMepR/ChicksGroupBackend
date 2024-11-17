@@ -178,7 +178,7 @@ To enhance performance, the API implements an in-memory caching mechanism. This 
 
 ## Testing
 
-Comprehensive testing ensures the reliability and correctness of the API:
+Comprehensive testing ensures the reliability and correct behaviour of the API:
 
 - **Unit Tests:** Validate individual components and functions.
 - **Integration Tests:** Ensure that different parts of the application work seamlessly together.
@@ -189,7 +189,9 @@ To run the tests, execute:
 pytest test/
 ```
 
-![Test Results](test_result.png)
+![Unit testing Results](test_result.png)
+![Stress testing Results](stress_test.png)
+
 
 ## Example Usage
 
@@ -198,9 +200,26 @@ pytest test/
    python main.py
    ```
 2. **Send a POST Request**
+
+ a) CURL
    ```bash
    curl -X POST "http://127.0.0.1:8000/api/solve" -H "Content-Type: application/json" -d '{"x_capacity": 3, "y_capacity": 5, "z_amount_wanted": 4}'
    ```
+ b) Python
+   ```python
+    import requests
+    import json
+
+    url = "http://127.0.0.1:8000/api/solve"
+
+    payload = json.dumps({"x_capacity": 3, "y_capacity": 100, "z_amount_wanted": 96})
+    
+    headers = {'Content-Type': 'application/json'}
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)```
+
 3. **Receive the Solution**
    The API will respond with a JSON object detailing the steps to achieve the target measurement.
 
