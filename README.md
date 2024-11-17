@@ -222,5 +222,6 @@ The Water Jug Problem Solver API has been developed with the following criteria 
 
 ## Learn More
 
-For more information about FastAPI and its features, visit the [FastAPI documentation](https://fastapi.tiangolo.com/).
+For more information about FastAPI and its features, visit the [FastAPI documentation](https://fastapi.tiangolo.com/)
+
 For more information about the Water Jug Problem, visit this [GeeksForGeeks detailed article](https://www.geeksforgeeks.org/two-water-jug-puzzle/)
