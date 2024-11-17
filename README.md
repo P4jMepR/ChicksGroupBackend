@@ -218,7 +218,8 @@ pytest test/
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
-    print(response.text)```
+    print(response.text)
+```
 
 3. **Receive the Solution**
    The API will respond with a JSON object detailing the steps to achieve the target measurement.
