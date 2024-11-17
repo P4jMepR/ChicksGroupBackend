@@ -67,6 +67,7 @@ It is built with FastAPI, ensuring high performance and scalability.
    cd ChicksGroupBackend
    ```
 3. **Install Dependencies**
+   
    For Windows:
    ```bash
    pip install -r requirements.txt

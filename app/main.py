@@ -30,10 +30,19 @@ class WaterJugResponse(BaseModel):
     solution: List[Step]
 
 # In-memory "cache" for previously solved values
+MAX_CACHE_SIZE = 10000
 solution_cache: Dict[Tuple[int, int, int], List[Step]] = {}
+cache_size = 0  # Track cache size to prevent memory leak
 
 def solve_water_jug(x_capacity: int, y_capacity: int, target: int) -> List[Step]:
-    # First check if result isn't in cache
+    global cache_size
+    
+    # Clear cache if it gets too big
+    if cache_size >= MAX_CACHE_SIZE:
+        solution_cache.clear()
+        cache_size = 0
+    
+    # Check cache
     cache_key = (x_capacity, y_capacity, target)
     if cache_key in solution_cache:
         return solution_cache[cache_key]
@@ -41,6 +50,7 @@ def solve_water_jug(x_capacity: int, y_capacity: int, target: int) -> List[Step]
     # Early validation
     if target > max(x_capacity, y_capacity):
         solution_cache[cache_key] = [] #Populate cache value even if invalid
+        cache_size += 1
         return []
 
     queue = deque([(0, 0, [])])  # (x, y, steps)
@@ -50,9 +60,10 @@ def solve_water_jug(x_capacity: int, y_capacity: int, target: int) -> List[Step]
         x, y, steps = queue.popleft()
         
         if x == target or y == target:
-            # Skip the initial (0,0) state to avoid adding 1 unnecessary step
+            # Skip the initial (0,0) state to avoid adding 1 unnecessary step (It is also performed within PDF requirements file)
             solution = format_steps([(x, y, action, is_final) for x, y, action, is_final in steps[1:] + [(x, y, "Target reached", True)]])
             solution_cache[cache_key] = solution
+            cache_size += 1
             return solution
         
         next_states = [
@@ -72,6 +83,7 @@ def solve_water_jug(x_capacity: int, y_capacity: int, target: int) -> List[Step]
                 queue.append((new_x, new_y, steps + [(x, y, action, False)]))
 
     solution_cache[cache_key] = []
+    cache_size += 1
     return []
 
 def format_steps(steps) -> List[Step]:
